@@ -1,10 +1,6 @@
 function main() {
     window.addEventListener("hashchange", route);
     route();
-
-    // TEST
-    fetchHome();
-    //fetchTournament("20241118");
 }
 
 function route() {
@@ -21,10 +17,6 @@ function route() {
         let id = window.location.hash.slice(1);
         fetchTournament(id);
     }
-
-    // TEST
-    console.log(window.location.hash);
-    console.log(window.location.hash);
 }
 
 function fetchHome() {
@@ -34,30 +26,22 @@ function fetchHome() {
 }
 
 function renderHome(text) {
-    // TEST
-    console.log(text);
-
     let content = document.querySelector(".content");
 
     let element = document.createElement("div");
     element.innerHTML = text;
 
-    tournamentsHTML = `<h1>Pacman Tournament!</h1>`
+    homeHTML = `<h1>Capture the Flag Tournament</h1>`;
     for (const link of element.querySelectorAll("li a")) {
         let id = link.getAttribute("href").replace(/\/$/, "");
         if (!id.match(/^\d+$/)) {
             continue;
         }
 
-        tournamentsHTML += `<a href=#${id}>${id}</a><br>`;
-
-        // TEST
-        console.log(link);
-        console.log(link.href);
-        console.log(link.getAttribute("href"));
+        homeHTML += `<a href=#${id}>${id}</a><br>`;
     }
-    content.innerHTML = tournamentsHTML;
 
+    content.innerHTML = homeHTML;
 }
 
 function fetchTournament(id) {
@@ -69,24 +53,77 @@ function fetchTournament(id) {
 }
 
 function renderTournament(id, data) {
-    // TEST
-    console.log(id, data);
-
     let content = document.querySelector(".content");
 
-    content.innerHTML = `
-        <h2>Tournmant ${id}</h2>
+    let tournamentHTML = `
+        <h1>Capture the Flag Tournament ${id}</h1>
+        <h2>Tournament Rankings</h2>
     `;
 
-    let redTeam = data["matches"][0]["red"]["name"];
-    let blueTeam = data["matches"][0]["blue"]["name"];
+    rankingsTableHTML = `
+        <tr>
+            <th>Rank</th>
+            <th>Team Name</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Ties</th>
+        </tr>
+    `;
 
-    let gifPath = `/tournament/${id}/matches/${id}_${redTeam}_vs_${blueTeam}/${id}_${redTeam}_vs_${blueTeam}_000.gif`;
+    for(const [i, record] of data["records"].entries()){
+        rankingsTableHTML += `
+            <tr>
+                <td>${i + 1}</td>
+                <td>${record["name"]}</td>
+                <td>${record["wins"]}</td>
+                <td>${record["losses"]}</td>
+                <td>${record["ties"]}</td>
+            </tr>
+        `;
+    }
 
-    let imageElement = document.createElement("img");
-    imageElement.src = gifPath;
+    tournamentHTML += `
+        <table>${rankingsTableHTML}</table>
+        <h2>Match Stats</h2>
+    `;
 
-    content.appendChild(imageElement);
+    matchesTableHTML = `
+        <tr>
+            <th></th>
+            <th>Match ID</th>
+            <th>Red Team</th>
+            <th>Blue Team</th>
+            <th>Red Wins</th>
+            <th>Blue Wins</th>
+            <th>Ties</th>
+            <th>Stats DL</th>
+            <th>Games DL</th>
+        </tr>
+    `;
+
+    for(const [i, match] of data["matches"].entries()){
+        matchesTableHTML += `
+            <tr>
+                <td><a href="">View</a></td>
+                <td>${i}</td>
+                <td>${match["red"]["name"]}</td>
+                <td>${match["blue"]["name"]}</td>
+                <td>${match["red"]["wins"]}</td>
+                <td>${match["blue"]["wins"]}</td>
+                <td>${match["blue"]["ties"]}</td>
+                <td>${match["blue"]["ties"]}</td>
+                <td>
+                    <a href="/tournament/${id}/matches/${id}_${match["red"]["name"]}_vs_${match["blue"]["name"]}/${id}_${match["red"]["name"]}_vs_${match["blue"]["name"]}_matchstats.json" download>Link</a>
+                </td>
+                <td>
+                    <a href="/tournament/${id}/matches/${id}_${match["red"]["name"]}_vs_${match["blue"]["name"]}/${id}_${match["red"]["name"]}_vs_${match["blue"]["name"]}.zip" download>Link</a>
+                </td>
+            </tr>
+        `;
+    }
+
+    tournamentHTML += `<table>${matchesTableHTML}</table>`;
+    content.innerHTML = tournamentHTML;
 }
 
 document.addEventListener("DOMContentLoaded", main);
