@@ -4,18 +4,21 @@ function main() {
 }
 
 function route() {
-    if (window.location.hash == ""){
+    let url = URL.parse(window.location.hash.replace(/^#/, ''), 'http://localhost');
+    let page = url.pathname.slice(1);
+    let params = url.searchParams;
+
+    if (page == ""){
         window.location.hash = "#home";
         route();
     }
 
-    if(window.location.hash == "#home"){
+    if(page == "home"){
         fetchHome();
     }
 
-    if(window.location.hash.slice(1).match(/^\d+$/)){
-        let id = window.location.hash.slice(1);
-        fetchTournament(id);
+    if(page == "tournament"){
+        fetchTournament(params.get("tid"));
     }
 }
 
@@ -27,7 +30,6 @@ function fetchHome() {
 
 function renderHome(text) {
     let content = document.querySelector(".content");
-
     let element = document.createElement("div");
     element.innerHTML = text;
 
@@ -38,7 +40,7 @@ function renderHome(text) {
             continue;
         }
 
-        homeHTML += `<a href=#${id}>${id}</a><br>`;
+        homeHTML += `<a href=#tournament?tid=${id}>${id}</a><br>`;
     }
 
     content.innerHTML = homeHTML;
@@ -104,7 +106,7 @@ function renderTournament(id, data) {
     for(const [i, match] of data["matches"].entries()){
         matchesTableHTML += `
             <tr>
-                <td><a href="">View</a></td>
+                <td><a href=#tournament?tid=${id}&mid=${i}>View</a></td>
                 <td>${i}</td>
                 <td>${match["red"]["name"]}</td>
                 <td>${match["blue"]["name"]}</td>
