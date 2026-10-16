@@ -110,7 +110,7 @@ function renderTournament(tournamentID, data) {
     for(const [i, match] of data["matches"].entries()){
         let redTeamName = match["red"]["name"];
         let blueTeamName = match["blue"]["name"];
-        let teamBaseDir = `/tournament/${tournamentID}/matches/${tournamentID}_${redTeamName}_vs_${blueTeamName}`;
+        let matchBaseDir = `/tournament/${tournamentID}/matches/${tournamentID}_${redTeamName}_vs_${blueTeamName}`;
 
         matchesTableHTML += `
             <tr>
@@ -123,10 +123,10 @@ function renderTournament(tournamentID, data) {
                 <td>${match["blue"]["ties"]}</td>
                 <td>${match["blue"]["ties"]}</td>
                 <td>
-                    <a href="${teamBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_matchstats.json" download>Link</a>
+                    <a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_matchstats.json" download>Link</a>
                 </td>
                 <td>
-                    <a href="${teamBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}.zip" download>Link</a>
+                    <a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}.zip" download>Link</a>
                 </td>
             </tr>
         `;
@@ -137,8 +137,8 @@ function renderTournament(tournamentID, data) {
 }
 
 function fetchMatch(tournamentID, matchID, redTeam, blueTeam) {
-    let teamBaseDir = `/tournament/${tournamentID}/matches/${tournamentID}_${redTeam}_vs_${blueTeam}`;
-    fetch(`${teamBaseDir}/${tournamentID}_${redTeam}_vs_${blueTeam}_matchstats.json`).then(function(response) {
+    let matchBaseDir = `/tournament/${tournamentID}/matches/${tournamentID}_${redTeam}_vs_${blueTeam}`;
+    fetch(`${matchBaseDir}/${tournamentID}_${redTeam}_vs_${blueTeam}_matchstats.json`).then(function(response) {
         response.json().then(function(result) {
             renderMatch(tournamentID, matchID, redTeam, blueTeam, result);
         });
