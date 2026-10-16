@@ -13,18 +13,22 @@ function route() {
         route();
     }
 
-    if(page == "home"){
+    if (page == "home"){
         fetchHome();
     }
 
-    if(page == "tournament"){
-        fetchTournament(params.get("tid"));
+    if (page == "tournament"){
+        fetchTournament(params.get("tournamentID"));
+    }
+
+    if (page == "match"){
+        fetchMatch(params.get("tournamentID"), params.get("matchID"), params.get("redTeam"), params.get("blueTeam"));
     }
 }
 
 function fetchHome() {
     fetch("/tournament").then(function(response) {
-        response.text().then(renderHome)
+        response.text().then(renderHome);
     });
 }
 
@@ -35,30 +39,30 @@ function renderHome(text) {
 
     homeHTML = `<h1>Capture the Flag Tournament</h1>`;
     for (const link of element.querySelectorAll("li a")) {
-        let id = link.getAttribute("href").replace(/\/$/, "");
-        if (!id.match(/^\d+$/)) {
+        let tournamentID = link.getAttribute("href").replace(/\/$/, "");
+        if (!tournamentID.match(/^\d+$/)) {
             continue;
         }
 
-        homeHTML += `<a href=#tournament?tid=${id}>${id}</a><br>`;
+        homeHTML += `<a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a><br>`;
     }
 
     content.innerHTML = homeHTML;
 }
 
-function fetchTournament(id) {
-    fetch(`/tournament/${id}/results.json`).then(function(response) {
+function fetchTournament(tournamentID) {
+    fetch(`/tournament/${tournamentID}/results.json`).then(function(response) {
         response.json().then(function(result) {
-            renderTournament(id, result);
+            renderTournament(tournamentID, result);
         });
     });
 }
 
-function renderTournament(id, data) {
+function renderTournament(tournamentID, data) {
     let content = document.querySelector(".content");
 
     let tournamentHTML = `
-        <h1>Capture the Flag Tournament ${id}</h1>
+        <h1>Capture the Flag Tournament ${tournamentID}</h1>
         <h2>Tournament Rankings</h2>
     `;
 
@@ -104,9 +108,13 @@ function renderTournament(id, data) {
     `;
 
     for(const [i, match] of data["matches"].entries()){
+        let redTeamName = match["red"]["name"];
+        let blueTeamName = match["blue"]["name"];
+        let teamBaseDir = `/tournament/${tournamentID}/matches/${tournamentID}_${redTeamName}_vs_${blueTeamName}`;
+
         matchesTableHTML += `
             <tr>
-                <td><a href=#tournament?tid=${id}&mid=${i}>View</a></td>
+                <td><a href=#match?tournamentID=${tournamentID}&matchID=${i}&redTeam=${redTeamName}&blueTeam=${blueTeamName}>View</a></td>
                 <td>${i}</td>
                 <td>${match["red"]["name"]}</td>
                 <td>${match["blue"]["name"]}</td>
@@ -115,10 +123,10 @@ function renderTournament(id, data) {
                 <td>${match["blue"]["ties"]}</td>
                 <td>${match["blue"]["ties"]}</td>
                 <td>
-                    <a href="/tournament/${id}/matches/${id}_${match["red"]["name"]}_vs_${match["blue"]["name"]}/${id}_${match["red"]["name"]}_vs_${match["blue"]["name"]}_matchstats.json" download>Link</a>
+                    <a href="${teamBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_matchstats.json" download>Link</a>
                 </td>
                 <td>
-                    <a href="/tournament/${id}/matches/${id}_${match["red"]["name"]}_vs_${match["blue"]["name"]}/${id}_${match["red"]["name"]}_vs_${match["blue"]["name"]}.zip" download>Link</a>
+                    <a href="${teamBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}.zip" download>Link</a>
                 </td>
             </tr>
         `;
@@ -126,6 +134,21 @@ function renderTournament(id, data) {
 
     tournamentHTML += `<table>${matchesTableHTML}</table>`;
     content.innerHTML = tournamentHTML;
+}
+
+function fetchMatch(tournamentID, matchID, redTeam, blueTeam) {
+    let teamBaseDir = `/tournament/${tournamentID}/matches/${tournamentID}_${redTeam}_vs_${blueTeam}`;
+    fetch(`${teamBaseDir}/${tournamentID}_${redTeam}_vs_${blueTeam}_matchstats.json`).then(function(response) {
+        response.json().then(function(result) {
+            renderMatch(tournamentID, matchID, redTeam, blueTeam, result);
+        });
+    });
+}
+
+function renderMatch(tournamentID, matchID, redTeam, blueTeam, result){
+    let content = document.querySelector(".content");
+    matchHTML = `<h1>Capture the Flag Match ${tournamentID}#${matchID}</h1>`;
+    content.innerHTML = matchHTML;
 }
 
 document.addEventListener("DOMContentLoaded", main);
