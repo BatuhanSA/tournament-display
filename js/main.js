@@ -1,35 +1,37 @@
 import * as edq from '../vendor/edq/js/edq.mjs';
 
 function main() {
-    window.addEventListener("hashchange", route);
-    route();
+    loadRouting();
 }
 
-function route() {
-    let url = URL.parse(window.location.hash.replace(/^#/, ''), 'http://localhost');
-    let page = url.pathname.replace(/^\//, '');
-    let params = url.searchParams;
+function loadRouting() {
+    edq.core.routing.addRoute(new edq.core.routing.StringRoute('', routeHome));
+    edq.core.routing.addRoute(new edq.core.routing.StringRoute('home', routeHome));
+    edq.core.routing.addRoute(new edq.core.routing.StringRoute('tournament', routeTournament));
+    edq.core.routing.addRoute(new edq.core.routing.StringRoute('match', routeMatch));
+    edq.core.routing.addRoute(new edq.core.routing.StringRoute('team', routeTeam));
 
-    if (page == "") {
-        window.location.hash = "#home";
-        route();
-    }
+    // Fallback to the same handler for everyone else.
+    // edq.core.routing.setNotFound(routeNotFound);
 
-    if (page == "home") {
-        fetchHome();
-    }
+    edq.core.routing.init();
+    edq.core.routing.route();
+}
 
-    if (page == "tournament") {
-        fetchTournament(params.get("tournamentID"));
-    }
+function routeHome(request) {
+    fetchHome();
+}
 
-    if (page == "match") {
-        fetchMatch(params.get("tournamentID"), params.get("redTeam"), params.get("blueTeam"));
-    }
+function routeTournament(request) {
+    fetchTournament(request.params.tournamentID);
+}
 
-    if (page == "team") {
-        fetchTeam(params.get("tournamentID"), params.get("teamName"));
-    }
+function routeMatch(request) {
+    fetchMatch(request.params.tournamentID, request.params.redTeam, request.params.blueTeam);
+}
+
+function routeTeam(request) {
+    fetchTeam(request.params.tournamentID, request.params.teamName);
 }
 
 function fetchHome() {
@@ -350,7 +352,6 @@ function renderTeam(tournamentID, teamName, result) {
             </tr>
         `;
     }
-    console.log(result);
     matchesTableHTML += `<tbody>${matchesTableInnerHTML}</tbody>`;
     teamHTML += `<table class="sortable-table">${matchesTableHTML}</table>`;
     content.innerHTML = teamHTML;
