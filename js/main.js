@@ -93,41 +93,50 @@ function fetchTournament(tournamentID) {
 function renderTournament(tournamentID, data) {
     let content = document.querySelector(".content");
 
-    let tournamentHTML = `
-        <h1>Capture the Flag Tournament ${tournamentID}</h1>
-        <h2>Tournament Rankings</h2>
-    `;
-
     let rankingsTableHTML = `
-        <tr>
-            <th>Rank</th>
-            <th>Team Name</th>
-            <th>Wins</th>
-            <th>Losses</th>
-            <th>Ties</th>
-        </tr>
+        <div class="tournament-rankings-row">
+            <div class="tournament-rankings-column rank">
+                Rank
+            </div>
+            <div class="tournament-rankings-column name">
+                Name
+            </div>
+            <div class="tournament-rankings-column wins">
+                Wins
+            </div>
+            <div class="tournament-rankings-column losses">
+                Losses
+            </div>
+            <div class="tournament-rankings-column ties">
+                Ties
+            </div>
+        </div>
     `;
 
     for(const [i, record] of data["records"].entries()) {
         rankingsTableHTML += `
-            <tr>
-                <td>${i + 1}</td>
-                <td>
-                   <a href=#team?teamName=${record["name"]}&tournamentID=${tournamentID}>${record["name"]}</a>
-                </td>
-                <td>${record["wins"]}</td>
-                <td>${record["losses"]}</td>
-                <td>${record["ties"]}</td>
-            </tr>
+            <div class="tournament-rankings-row">
+                <div class="tournament-rankings-column rank">
+                    ${i + 1}
+                </div>
+                <div class="tournament-rankings-column name">
+                    <a href=#team?teamName=${record["name"]}&tournamentID=${tournamentID}>${record["name"]}</a>
+                </div>
+                <div class="tournament-rankings-column wins">
+                    ${record["wins"]}
+                </div>
+                <div class="tournament-rankings-column losses">
+                    ${record["losses"]}
+                </div>
+                <div class="tournament-rankings-column ties">
+                    ${record["ties"]}
+                </div>
+            </div>
         `;
     }
 
-    tournamentHTML += `
-        <table>${rankingsTableHTML}</table>
-        <h2>Match Stats</h2>
-    `;
-
     let matchesTableHTML = `
+        <h2>Match Stats</h2>
         <thead>
             <tr>
                 <th></th>
@@ -174,7 +183,24 @@ function renderTournament(tournamentID, data) {
     }
 
     matchesTableHTML += `<tbody>${matchesTableInnerHTML}</tbody>`;
-    tournamentHTML += `<table class="sortable-table">${matchesTableHTML}</table>`;
+    let tournamentHTML = `
+        <div class="page-title">
+            <h1>Tournament ${tournamentID}</h1>
+        </div>
+        <div class="tournament-results-area">
+            <div class="tournament-rankings-area">
+                <div class="tournament-rankings-title">
+                    <h2>Rankings</h2>
+                </div>
+                <div class="tournament-rankings">
+                    ${rankingsTableHTML}
+                </div>
+            </div>
+            <div class="tournament-matchups-area">
+                <h2><table>${matchesTableHTML}</table></h2>
+            </div>
+        </div>
+    `;
     content.innerHTML = tournamentHTML;
     edq.util.table.enableSortingAll();
 }

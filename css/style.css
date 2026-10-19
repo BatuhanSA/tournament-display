@@ -66,3 +66,46 @@ body > div {
 
     flex-grow: 1;
 }
+
+.content .tournament-results-area {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.content .tournament-rankings-area {
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 1;
+}
+
+.content .tournament-rankings-title {
+    display: flex;
+    justify-content: center;
+}
+
+.content .tournament-rankings-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.content .tournament-rankings-column {
+    display: flex;
+    flex-grow: 1;
+}
+
+.content .tournament-rankings {
+    display: flex;
+    flex-direction: column;
+}
+
+.content .tournament-matchups-area {
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 1;
+}
