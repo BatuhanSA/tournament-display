@@ -66,11 +66,10 @@ function renderHome(text) {
             });
         });
 
-        let tournamentDate = new Date(tournamentID.slice(0, 4), tournamentID.slice(4, 6) - 1, tournamentID.slice(6, 8));;
         tournamentsHTML += `
             <div class="tournament-card" data-id="${tournamentID}">
                 <div class="tournament-card-item">
-                    <a href=#tournament?tournamentID=${tournamentID}>${tournamentDate.toDateString()}</a>
+                    <a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a>
                 </div>
                 <div class="tournament-card-item first"></div>
                 <div class="tournament-card-item second"></div>
