@@ -58,15 +58,23 @@ function renderHome(text) {
             continue;
         }
 
+        fetch(`/tournament/results/${tournamentID}/results.json`).then(function(response) {
+            response.json().then(function(results) {
+                document.querySelector(`.tournament-card[data-id="${tournamentID}"] .first`).textContent = `1st ${results["records"][0]["name"]}`;
+                document.querySelector(`.tournament-card[data-id="${tournamentID}"] .second`).textContent = `2nd ${results["records"][1]["name"]}`;
+                document.querySelector(`.tournament-card[data-id="${tournamentID}"] .third`).textContent = `3rd ${results["records"][2]["name"]}`;
+            });
+        });
+
         let tournamentDate = new Date(tournamentID.slice(0, 4), tournamentID.slice(4, 6) - 1, tournamentID.slice(6, 8));;
         tournamentsHTML += `
-            <div class="tournament-card">
+            <div class="tournament-card" data-id="${tournamentID}">
                 <div class="tournament-card-item">
                     <a href=#tournament?tournamentID=${tournamentID}>${tournamentDate.toDateString()}</a>
                 </div>
-                <div class="tournament-card-item"></div>
-                <div class="tournament-card-item"></div>
-                <div class="tournament-card-item"></div>
+                <div class="tournament-card-item first"></div>
+                <div class="tournament-card-item second"></div>
+                <div class="tournament-card-item third"></div>
             </div>
         `;
     }
