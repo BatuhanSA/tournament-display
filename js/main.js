@@ -45,16 +45,33 @@ function renderHome(text) {
     let element = document.createElement("div");
     element.innerHTML = text;
 
-    let homeHTML = `<h1>Capture the Flag Tournament</h1>`;
+    let homeHTML = `
+        <div class="page-title">
+            <h1>Tournaments</h1>
+        </div>
+    `;
+
+    let tournamentsHTML = ``;
     for (const link of element.querySelectorAll("li a")) {
         let tournamentID = link.getAttribute("href").replace(/\/$/, "");
         if (!tournamentID.match(/^\d+$/)) {
             continue;
         }
 
-        homeHTML += `<a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a><br>`;
+        let tournamentDate = new Date(tournamentID.slice(0, 4), tournamentID.slice(4, 6) - 1, tournamentID.slice(6, 8));;
+        tournamentsHTML += `
+            <div class="tournament-card">
+                <div class="tournament-card-item">
+                    <a href=#tournament?tournamentID=${tournamentID}>${tournamentDate.toDateString()}</a>
+                </div>
+                <div class="tournament-card-item"></div>
+                <div class="tournament-card-item"></div>
+                <div class="tournament-card-item"></div>
+            </div>
+        `;
     }
 
+    homeHTML += `<div class=tournament-card-area>${tournamentsHTML}</div>`
     content.innerHTML = homeHTML;
 }
 
