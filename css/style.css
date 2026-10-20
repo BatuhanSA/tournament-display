@@ -17,6 +17,10 @@ body > div {
     padding: 1rem;
 }
 
+th, td {
+  text-align: center;
+}
+
 .header,
 .footer {
     display: flex;
@@ -79,8 +83,6 @@ body > div {
 .content .tournament-rankings-area {
     display: flex;
     flex-direction: column;
-
-    flex-grow: 1;
 }
 
 .content .tournament-rankings-title {
