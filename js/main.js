@@ -82,7 +82,7 @@ function renderHome(text) {
 }
 
 function fetchTournament(tournamentID) {
-    fetch(`/tournament/results/${tournamentID}/results.json`).then(function(response) {
+    fetch(`./tournament/results/${tournamentID}/results.json`).then(function(response) {
         response.json().then(function(result) {
             renderTournament(tournamentID, result);
         });
@@ -135,7 +135,7 @@ function renderTournament(tournamentID, data) {
 }
 
 function fetchMatch(tournamentID, redTeam, blueTeam) {
-    let matchBaseDir = `/tournament/results/${tournamentID}/matches/${tournamentID}_${redTeam}_vs_${blueTeam}`;
+    let matchBaseDir = `./tournament/results/${tournamentID}/matches/${tournamentID}_${redTeam}_vs_${blueTeam}`;
     fetch(`${matchBaseDir}/${tournamentID}_${redTeam}_vs_${blueTeam}_matchstats.json`).then(function(response) {
         response.json().then(function(result) {
             renderMatch(tournamentID, result);
@@ -147,7 +147,7 @@ function renderMatch(tournamentID, result) {
     let content = document.querySelector(".content");
     let redTeamName = result["red"]["name"];
     let blueTeamName = result["blue"]["name"];
-    let matchBaseDir = `/tournament/results/${tournamentID}/matches/${tournamentID}_${redTeamName}_vs_${blueTeamName}`;
+    let matchBaseDir = `./tournament/results/${tournamentID}/matches/${tournamentID}_${redTeamName}_vs_${blueTeamName}`;
 
     let matchHTML = `
         <h2>
@@ -246,7 +246,7 @@ function renderMatch(tournamentID, result) {
 }
 
 function fetchTeam(tournamentID, teamName) {
-    fetch(`/tournament/results/${tournamentID}/results.json`).then(function(response) {
+    fetch(`./tournament/results/${tournamentID}/results.json`).then(function(response) {
         response.json().then(function(result) {
             renderTeam(tournamentID, teamName, result);
         });
@@ -258,7 +258,7 @@ function renderTeam(tournamentID, teamName, result) {
     let teamHTML = `
     <div class="page-title">
         <h2>
-            Tournament <a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a> 
+            Tournament <a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a>
             ${teamName} Team States
         </h2>
     </div>
@@ -308,7 +308,7 @@ function renderTeam(tournamentID, teamName, result) {
             continue;
         }
 
-        let matchBaseDir = `/tournament/results/${tournamentID}/matches/${tournamentID}_${redTeamName}_vs_${blueTeamName}`;
+        let matchBaseDir = `./tournament/results/${tournamentID}/matches/${tournamentID}_${redTeamName}_vs_${blueTeamName}`;
 
         matchesTableInnerHTML += `
             <tr>
