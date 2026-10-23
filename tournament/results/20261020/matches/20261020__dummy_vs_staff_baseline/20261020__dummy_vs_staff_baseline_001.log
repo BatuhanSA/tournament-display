@@ -1,0 +1,6 @@
+2026-10-18 15:26:27,829 [INFO    ] - game.py:439 -- Saving results to '/scratch/cse140/test/tournament/out/140_tournament/20261020/matches/20261020__dummy_vs_staff_baseline/20261020__dummy_vs_staff_baseline_001.replay'.
+2026-10-18 15:26:27,843 [INFO    ] - bin.py:112 -- Average Score: 200.0
+2026-10-18 15:26:27,843 [INFO    ] - bin.py:115 -- Scores:        200
+2026-10-18 15:26:27,843 [INFO    ] - bin.py:120 -- Record:        blue
+2026-10-18 15:26:27,843 [INFO    ] - bin.py:124 -- Average Turns: 547.0
+2026-10-18 15:26:27,843 [INFO    ] - bin.py:127 -- Turn Counts:   547

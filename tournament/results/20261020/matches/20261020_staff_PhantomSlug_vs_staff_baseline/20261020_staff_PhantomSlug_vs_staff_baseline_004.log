@@ -1,0 +1,6 @@
+2026-10-18 15:29:18,203 [INFO    ] - game.py:439 -- Saving results to '/scratch/cse140/test/tournament/out/140_tournament/20261020/matches/20261020_staff_PhantomSlug_vs_staff_baseline/20261020_staff_PhantomSlug_vs_staff_baseline_004.replay'.
+2026-10-18 15:29:18,231 [INFO    ] - bin.py:112 -- Average Score: 320.0
+2026-10-18 15:29:18,231 [INFO    ] - bin.py:115 -- Scores:        320
+2026-10-18 15:29:18,231 [INFO    ] - bin.py:120 -- Record:        blue
+2026-10-18 15:29:18,231 [INFO    ] - bin.py:124 -- Average Turns: 1200.0
+2026-10-18 15:29:18,232 [INFO    ] - bin.py:127 -- Turn Counts:   1200

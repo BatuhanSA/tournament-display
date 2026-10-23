@@ -1,0 +1,24 @@
+{
+    "blue": {
+        "crash": false,
+        "loss": true,
+        "name": "_dummy",
+        "tie": false,
+        "time": 1.3959999999999964,
+        "timeouts": false,
+        "win": false
+    },
+    "board": "random-1983658644",
+    "is_game_timeout": false,
+    "red": {
+        "crash": false,
+        "loss": false,
+        "name": "staff_PhantomSlug",
+        "tie": false,
+        "time": 1.8939999999999937,
+        "timeouts": false,
+        "win": true
+    },
+    "score": -980,
+    "time": 6.515
+}

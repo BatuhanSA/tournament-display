@@ -1,0 +1,60 @@
+{
+    "blue": {
+        "crashes": 0,
+        "losses": 5,
+        "name": "_dummy",
+        "ties": 0,
+        "timeouts": 0,
+        "times": [
+            0.9650000000000007,
+            0.9650000000000007,
+            0.9680000000000007,
+            0.1410000000000001,
+            4.610999999999985
+        ],
+        "wins": 0
+    },
+    "boards": [
+        "capture-default.board",
+        "capture-default.board",
+        "capture-default.board",
+        "random-1366207806",
+        "random-3064103841"
+    ],
+    "full_game_timeouts": [
+        false,
+        false,
+        false,
+        false,
+        true
+    ],
+    "red": {
+        "crashes": 0,
+        "losses": 0,
+        "name": "staff_baseline",
+        "ties": 0,
+        "timeouts": 0,
+        "times": [
+            1.3489999999999982,
+            1.2619999999999985,
+            1.2929999999999984,
+            0.20300000000000015,
+            5.6469999999999745
+        ],
+        "wins": 5
+    },
+    "scores": [
+        -200,
+        -200,
+        -200,
+        -100,
+        -750
+    ],
+    "times": [
+        4.879,
+        4.641,
+        4.691,
+        1.356,
+        26.402
+    ]
+}

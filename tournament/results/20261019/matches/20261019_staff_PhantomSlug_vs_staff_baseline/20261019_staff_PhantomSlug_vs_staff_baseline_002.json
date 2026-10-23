@@ -1,0 +1,24 @@
+{
+    "blue": {
+        "crash": false,
+        "loss": true,
+        "name": "staff_baseline",
+        "tie": false,
+        "time": 4.446999999999987,
+        "timeouts": false,
+        "win": false
+    },
+    "board": "capture-default.board",
+    "is_game_timeout": true,
+    "red": {
+        "crash": false,
+        "loss": false,
+        "name": "staff_PhantomSlug",
+        "tie": false,
+        "time": 4.294999999999985,
+        "timeouts": false,
+        "win": true
+    },
+    "score": -10,
+    "time": 14.492
+}

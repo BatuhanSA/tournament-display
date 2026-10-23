@@ -1,0 +1,24 @@
+{
+    "blue": {
+        "crash": false,
+        "loss": false,
+        "name": "staff_baseline",
+        "tie": false,
+        "time": 1.0439999999999998,
+        "timeouts": false,
+        "win": true
+    },
+    "board": "capture-default.board",
+    "is_game_timeout": false,
+    "red": {
+        "crash": false,
+        "loss": true,
+        "name": "_dummy",
+        "tie": false,
+        "time": 0.7660000000000006,
+        "timeouts": false,
+        "win": false
+    },
+    "score": 200,
+    "time": 4.235
+}

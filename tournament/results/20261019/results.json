@@ -1,0 +1,384 @@
+{
+    "matches": [
+        {
+            "blue": {
+                "crashes": 0,
+                "losses": 0,
+                "name": "staff_PhantomSlug",
+                "ties": 0,
+                "timeouts": 0,
+                "times": [
+                    1.3759999999999974,
+                    1.1369999999999996,
+                    3.745999999999992,
+                    3.063999999999989,
+                    2.0359999999999947
+                ],
+                "wins": 5
+            },
+            "boards": [
+                "capture-default.board",
+                "capture-default.board",
+                "capture-default.board",
+                "random-3337929587",
+                "random-491073943"
+            ],
+            "full_game_timeouts": [
+                false,
+                false,
+                true,
+                false,
+                false
+            ],
+            "red": {
+                "crashes": 0,
+                "losses": 5,
+                "name": "_dummy",
+                "ties": 0,
+                "timeouts": 0,
+                "times": [
+                    0.9990000000000008,
+                    0.8840000000000007,
+                    3.507999999999986,
+                    2.4339999999999913,
+                    1.7509999999999957
+                ],
+                "wins": 0
+            },
+            "scores": [
+                200,
+                200,
+                130,
+                860,
+                440
+            ],
+            "times": [
+                5.015,
+                4.451,
+                12.22,
+                9.524,
+                9.218
+            ]
+        },
+        {
+            "blue": {
+                "crashes": 0,
+                "losses": 0,
+                "name": "staff_baseline",
+                "ties": 0,
+                "timeouts": 0,
+                "times": [
+                    1.232999999999999,
+                    1.3319999999999974,
+                    1.328999999999998,
+                    1.1099999999999999,
+                    4.979999999999973
+                ],
+                "wins": 5
+            },
+            "boards": [
+                "capture-default.board",
+                "capture-default.board",
+                "capture-default.board",
+                "random-4021205057",
+                "random-3855219177"
+            ],
+            "full_game_timeouts": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "red": {
+                "crashes": 0,
+                "losses": 5,
+                "name": "_dummy",
+                "ties": 0,
+                "timeouts": 0,
+                "times": [
+                    1.0390000000000004,
+                    1.0120000000000007,
+                    1.0350000000000004,
+                    0.7460000000000004,
+                    4.506999999999978
+                ],
+                "wins": 0
+            },
+            "scores": [
+                200,
+                200,
+                200,
+                500,
+                920
+            ],
+            "times": [
+                4.84,
+                4.89,
+                4.682,
+                4.157,
+                19.563
+            ]
+        },
+        {
+            "blue": {
+                "crashes": 0,
+                "losses": 5,
+                "name": "_dummy",
+                "ties": 0,
+                "timeouts": 0,
+                "times": [
+                    3.6039999999999894,
+                    1.2749999999999986,
+                    3.329999999999997,
+                    1.3959999999999964,
+                    0.35500000000000026
+                ],
+                "wins": 0
+            },
+            "boards": [
+                "capture-default.board",
+                "capture-default.board",
+                "capture-default.board",
+                "random-1983658644",
+                "random-1657644428"
+            ],
+            "full_game_timeouts": [
+                true,
+                false,
+                true,
+                false,
+                false
+            ],
+            "red": {
+                "crashes": 0,
+                "losses": 0,
+                "name": "staff_PhantomSlug",
+                "ties": 0,
+                "timeouts": 0,
+                "times": [
+                    3.821999999999989,
+                    1.5759999999999967,
+                    3.2319999999999816,
+                    1.8939999999999937,
+                    0.5410000000000004
+                ],
+                "wins": 5
+            },
+            "scores": [
+                -140,
+                -200,
+                -170,
+                -980,
+                -320
+            ],
+            "times": [
+                12.441,
+                5.474,
+                10.895,
+                6.515,
+                1.901
+            ]
+        },
+        {
+            "blue": {
+                "crashes": 0,
+                "losses": 5,
+                "name": "staff_baseline",
+                "ties": 0,
+                "timeouts": 0,
+                "times": [
+                    4.093999999999988,
+                    4.417999999999985,
+                    4.446999999999987,
+                    4.679999999999985,
+                    2.5649999999999893
+                ],
+                "wins": 0
+            },
+            "boards": [
+                "capture-default.board",
+                "capture-default.board",
+                "capture-default.board",
+                "random-610959499",
+                "random-2269147555"
+            ],
+            "full_game_timeouts": [
+                true,
+                true,
+                true,
+                true,
+                false
+            ],
+            "red": {
+                "crashes": 0,
+                "losses": 0,
+                "name": "staff_PhantomSlug",
+                "ties": 0,
+                "timeouts": 0,
+                "times": [
+                    4.077999999999985,
+                    4.301999999999986,
+                    4.294999999999985,
+                    4.848999999999979,
+                    2.6299999999999875
+                ],
+                "wins": 5
+            },
+            "scores": [
+                -30,
+                -60,
+                -10,
+                -80,
+                -90
+            ],
+            "times": [
+                13.562,
+                14.666,
+                14.492,
+                18.246,
+                9.485
+            ]
+        },
+        {
+            "blue": {
+                "crashes": 0,
+                "losses": 5,
+                "name": "_dummy",
+                "ties": 0,
+                "timeouts": 0,
+                "times": [
+                    0.9770000000000008,
+                    1.0330000000000006,
+                    1.0230000000000004,
+                    0.20700000000000016,
+                    3.4009999999999923
+                ],
+                "wins": 0
+            },
+            "boards": [
+                "capture-default.board",
+                "capture-default.board",
+                "capture-default.board",
+                "random-947918012",
+                "random-1219092652"
+            ],
+            "full_game_timeouts": [
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "red": {
+                "crashes": 0,
+                "losses": 0,
+                "name": "staff_baseline",
+                "ties": 0,
+                "timeouts": 0,
+                "times": [
+                    1.3219999999999983,
+                    1.4349999999999976,
+                    1.3139999999999978,
+                    0.2730000000000002,
+                    3.690999999999989
+                ],
+                "wins": 5
+            },
+            "scores": [
+                -200,
+                -200,
+                -200,
+                -160,
+                -700
+            ],
+            "times": [
+                4.818,
+                5.084,
+                4.799,
+                1.334,
+                14.243
+            ]
+        },
+        {
+            "blue": {
+                "crashes": 0,
+                "losses": 1,
+                "name": "staff_PhantomSlug",
+                "ties": 0,
+                "timeouts": 0,
+                "times": [
+                    4.469999999999977,
+                    3.7689999999999744,
+                    4.42799999999998,
+                    5.992999999999969,
+                    4.432999999999986
+                ],
+                "wins": 4
+            },
+            "boards": [
+                "capture-default.board",
+                "capture-default.board",
+                "capture-default.board",
+                "random-679647289",
+                "random-2557078297"
+            ],
+            "full_game_timeouts": [
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "red": {
+                "crashes": 0,
+                "losses": 4,
+                "name": "staff_baseline",
+                "ties": 0,
+                "timeouts": 0,
+                "times": [
+                    4.456999999999982,
+                    4.038999999999977,
+                    4.079999999999988,
+                    6.439999999999984,
+                    4.017999999999984
+                ],
+                "wins": 1
+            },
+            "scores": [
+                40,
+                70,
+                -20,
+                10,
+                160
+            ],
+            "times": [
+                14.642,
+                12.871,
+                13.716,
+                36.578,
+                15.521
+            ]
+        }
+    ],
+    "records": [
+        {
+            "losses": 1,
+            "name": "staff_PhantomSlug",
+            "ties": 0,
+            "wins": 19
+        },
+        {
+            "losses": 9,
+            "name": "staff_baseline",
+            "ties": 0,
+            "wins": 11
+        },
+        {
+            "losses": 20,
+            "name": "_dummy",
+            "ties": 0,
+            "wins": 0
+        }
+    ]
+}
