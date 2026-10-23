@@ -323,7 +323,6 @@ function renderTeam(tournamentID, teamName, result) {
                 <td>${match["red"]["wins"]}</td>
                 <td>${match["blue"]["wins"]}</td>
                 <td>${match["red"]["ties"]}</td>
-                <td>${match["blue"]["ties"]}</td>
                 <td>
                     <a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_matchstats.json" download>Link</a>
                 </td>
