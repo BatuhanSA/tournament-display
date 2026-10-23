@@ -34,7 +34,7 @@ function routeTeam(request) {
 }
 
 function fetchHome() {
-    fetch("/tournament/results").then(function(response) {
+    fetch("./tournament/results").then(function(response) {
         response.text().then(renderHome);
     });
 }
@@ -57,7 +57,7 @@ function renderHome(text) {
             continue;
         }
 
-        fetch(`../../tournament/results/${tournamentID}/results.json`).then(function(response) {
+        fetch(`./tournament/results/${tournamentID}/results.json`).then(function(response) {
             response.json().then(function(results) {
                 document.querySelector(`.tournament-card[data-id="${tournamentID}"] .first`).textContent = `1st ${results["records"][0]["name"]}`;
                 document.querySelector(`.tournament-card[data-id="${tournamentID}"] .second`).textContent = `2nd ${results["records"][1]["name"]}`;
