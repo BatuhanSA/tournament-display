@@ -11,8 +11,7 @@ function loadRouting() {
     edq.core.routing.addRoute(new edq.core.routing.StringRoute('match', routeMatch));
     edq.core.routing.addRoute(new edq.core.routing.StringRoute('team', routeTeam));
 
-    // Fallback to the same handler for everyone else.
-    // edq.core.routing.setNotFound(routeNotFound);
+    // TODO(Batu): Set the fallback handler.
 
     edq.core.routing.init();
     edq.core.routing.route();
@@ -47,7 +46,7 @@ function renderHome(text) {
 
     let homeHTML = `
         <div class="page-title">
-            <h1>Tournaments</h1>
+            <h2>Tournaments</h2>
         </div>
     `;
 
@@ -109,7 +108,7 @@ function renderTournament(tournamentID, data) {
     for(const [i, record] of data["records"].entries()) {
         rankingsTableBodyHTML += `
             <tr>
-                <td>${i + 1}</td>
+                <td>#${i + 1}</td>
                 <td>
                     <a href=#team?teamName=${record["name"]}&tournamentID=${tournamentID}>${record["name"]}</a>
                 </td>
@@ -121,72 +120,16 @@ function renderTournament(tournamentID, data) {
     }
 
     rankingsTableHTML += `<tbody>${rankingsTableBodyHTML}</tbody>`
-    let matchesTableHTML = `
-        <h3>Match Stats</h3>
-        <thead>
-            <tr>
-                <th></th>
-                <th>Match ID</th>
-                <th>Red Team</th>
-                <th>Blue Team</th>
-                <th>Red Wins</th>
-                <th>Blue Wins</th>
-                <th>Ties</th>
-                <th>Stats DL</th>
-                <th>Games DL</th>
-            </tr>
-        </thead>
-    `;
 
-    let matchesTableInnerHTML = ``;
-    for(const [i, match] of data["matches"].entries()) {
-        let redTeamName = match["red"]["name"];
-        let blueTeamName = match["blue"]["name"];
-        let matchBaseDir = `/tournament/results/${tournamentID}/matches/${tournamentID}_${redTeamName}_vs_${blueTeamName}`;
-
-        matchesTableInnerHTML += `
-            <tr>
-                <td><a href=#match?tournamentID=${tournamentID}&redTeam=${redTeamName}&blueTeam=${blueTeamName}>View</a></td>
-                <td>${i}</td>
-                <td>
-                    <a href=#team?teamName=${match["red"]["name"]}&tournamentID=${tournamentID}>${match["red"]["name"]}</a>
-                </td>
-                <td>
-                    <a href=#team?teamName=${match["blue"]["name"]}&tournamentID=${tournamentID}>${match["blue"]["name"]}</a>
-                </td>
-                <td>${match["red"]["wins"]}</td>
-                <td>${match["blue"]["wins"]}</td>
-                <td>${match["red"]["ties"]}</td>
-                <td>${match["blue"]["ties"]}</td>
-                <td>
-                    <a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_matchstats.json" download>Link</a>
-                </td>
-                <td>
-                    <a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}.zip" download>Link</a>
-                </td>
-            </tr>
-        `;
-    }
-
-    matchesTableHTML += `<tbody>${matchesTableInnerHTML}</tbody>`;
     let tournamentHTML = `
         <div class="page-title">
-            <h2>Tournament ${tournamentID}</h2>
+            <h2>Tournament ${tournamentID} Rankings</h2>
         </div>
-        <div class="tournament-results-area">
-            <div class="tournament-rankings-area">
-                <div class="tournament-rankings-title">
-                    <h3>Rankings</h3>
-                </div>
-                <div class="tournament-rankings">
-                    <table>${rankingsTableHTML}</table>
-                </div>
-            </div>
-            <div class="tournament-matchups-area">
-                <table>${matchesTableHTML}</table>
-            </div>
+        <div class="tournament-rankings">
+            <table>${rankingsTableHTML}</table>
         </div>
     `;
+
     content.innerHTML = tournamentHTML;
     edq.util.table.enableSortingAll();
 }
@@ -207,19 +150,19 @@ function renderMatch(tournamentID, result) {
     let matchBaseDir = `/tournament/results/${tournamentID}/matches/${tournamentID}_${redTeamName}_vs_${blueTeamName}`;
 
     let matchHTML = `
-        <h1>
+        <h2>
             Capture the Flag Tournament
             <a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a>
             -- ${redTeamName} vs. ${blueTeamName}
-        </h1>
-        <h2>
+        </h2>
+        <h3>
             Match Stats
             (<a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_matchstats.json" download>Download Full Match Stats</a>)
-        </h2>
+        </h3>
     `;
 
     let redTeamHTML = `
-        <h3>Red Team</h3>
+        <h4>Red Team</h4>
         <p><label>Name:</label>
             <span>
                 <a href=#team?teamName=${redTeamName}&tournamentID=${tournamentID}>${redTeamName}</a>
@@ -233,7 +176,7 @@ function renderMatch(tournamentID, result) {
     `;
 
     let blueTeamHTML = `
-        <h3>Blue Team</h3>
+        <h4>Blue Team</h4>
         <p><label>Name:</label>
             <span>
                 <a href=#team?teamName=${blueTeamName}&tournamentID=${tournamentID}>${blueTeamName}</a>
@@ -248,10 +191,10 @@ function renderMatch(tournamentID, result) {
 
     matchHTML += redTeamHTML + blueTeamHTML;
     matchHTML += `
-        <h2>
+        <h3>
             Games
             (<a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}.zip" download>Download All Games</a>)
-        </h2>
+        </h3>
     `;
 
     let gamesTableHTML = `
@@ -268,7 +211,8 @@ function renderMatch(tournamentID, result) {
                 <th>Blue Time</th>
             </tr>
         </thead>
-    `
+    `;
+
     let gamesTableInnerHTML = ``;
     for (let i = 0; i < result.boards.length; i++) {
         let paddedID = i.toString().padStart(3, '0');
@@ -312,15 +256,16 @@ function fetchTeam(tournamentID, teamName) {
 function renderTeam(tournamentID, teamName, result) {
     let content = document.querySelector(".content");
     let teamHTML = `
-        <h1>
-            Capture the Flag Tournament
-            <a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a>
-            -- ${teamName}
-        </h1>
+    <div class="page-title">
+        <h2>
+            Tournament <a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a> 
+            ${teamName} Team States
+        </h2>
+    </div>
     `;
 
     teamHTML += `
-        <h2>Tournament Stats</h2>
+        <h3>Tournament Stats</h3>
     `;
 
     for(const [i, record] of result["records"].entries()) {
@@ -335,7 +280,7 @@ function renderTeam(tournamentID, teamName, result) {
     }
 
     teamHTML += `
-        <h2>Match Stats</h2>
+        <h3>Match Stats</h3>
     `;
 
     let matchesTableHTML = `
@@ -388,6 +333,7 @@ function renderTeam(tournamentID, teamName, result) {
             </tr>
         `;
     }
+
     matchesTableHTML += `<tbody>${matchesTableInnerHTML}</tbody>`;
     teamHTML += `<table class="sortable-table">${matchesTableHTML}</table>`;
     content.innerHTML = teamHTML;
