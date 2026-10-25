@@ -126,7 +126,7 @@ function renderTournament(tournamentID, data) {
             <h2>Tournament ${tournamentID} Rankings</h2>
         </div>
         <div class="tournament-rankings">
-            <table>${rankingsTableHTML}</table>
+            <table class="sortable-table">${rankingsTableHTML}</table>
         </div>
     `;
 
