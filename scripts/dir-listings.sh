@@ -3,6 +3,7 @@
 readonly THIS_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd | xargs realpath)"
 readonly ROOT_DIR="${THIS_DIR}/.."
 readonly RESULTS_DIR="${ROOT_DIR}/tournament/results"
+readonly OUTPUT_FILE="${RESULTS_DIR}/index.html"
 
 function main() {
     if [[ $# -ne 0 ]]; then
@@ -13,13 +14,13 @@ function main() {
     set -e
     trap exit SIGINT
 
-    local index_html="<html>\n"
-    for name in $(ls -1 "${RESULTS_DIR}") ; do
-        index_html+="<li><a href='${name}'></a></li>\n"
+    local results_dir_listing=""
+    for name in $(ls -1 ${RESULTS_DIR}) ; do
+        results_dir_listing+="<li><a href='${name}'></a></li>\n"
     done
 
-    index_html+="</html>"
-    echo -e "$index_html" > "${RESULTS_DIR}/index.html"
+    local index_html="<html><body>\n${results_dir_listing}</body></html>"
+    echo -e "$index_html" > "${OUTPUT_FILE}"
     return $?
 }
 
