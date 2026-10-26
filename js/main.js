@@ -240,13 +240,6 @@ function renderMatch(tournamentID, matchBaseDir, result) {
         </div>
     `;
 
-    matchHTML += `
-        <h3>
-            Games
-            (<a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}.zip" download>Download All Games</a>)
-        </h3>
-    `;
-
     let gamesTableHTML = `
         <thead>
             <tr>
@@ -263,34 +256,64 @@ function renderMatch(tournamentID, matchBaseDir, result) {
         </thead>
     `;
 
-    let gamesTableInnerHTML = ``;
+    let gamesCards = ``;
     for (let i = 0; i < result.boards.length; i++) {
         let paddedID = i.toString().padStart(3, '0');
-        gamesTableInnerHTML += `
-            <tr>
-                <td>
+        gamesCards += `
+            <div class="game-card">
+                <div class="game-img">
                     <a href=${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_${paddedID}.webp>
                         <img src=${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_${paddedID}.webp width="300">
                     </a>
-                </td>
-                <td>
-                    <a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_${paddedID}.log" download>Log</a>
-                </td>
-                <td>
-                    <a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_${paddedID}.replay" download>Replay</a>
-                </td>
-                <td>${i}</td>
-                <td>${result.boards[i]}</td>
-                <td>${result.scores[i]}</td>
-                <td>${result.times[i]}</td>
-                <td>${result.red.times[i]}</td>
-                <td>${result.blue.times[i]}</td>
-            </tr>
+                </div>
+                <div class="game-info-area">
+                    <div class="game-info-item">
+                        <a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_${paddedID}.log" download>
+                            Log
+                        </a>
+                    </div>
+                    <div class="game-info-item">
+                        <a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_${paddedID}.replay" download>
+                            Replay
+                        </a>
+                    </div>
+                    <div class="game-info-item">
+                        Game ID: ${paddedID}
+                    </div>
+                    <div class="game-info-item">
+                        Board: ${result.boards[i]}
+                    </div>
+                    <div class="game-info-item">
+                        Score: ${result.scores[i]}
+                    </div>
+                    <div class="game-info-item">
+                        Total Time: ${result.times[i]}
+                    </div>
+                    <div class="game-info-item">
+                        Red Time: ${result.red.times[i]}
+                    </div>
+                    <div class="game-info-item">
+                        Blue Time: ${result.blue.times[i]}
+                    </div>
+                </div>
+            </div>
         `;
     }
 
-    gamesTableHTML += `<tbody>${gamesTableInnerHTML}</tbody>`;
-    matchHTML += `<table class="sortable-table">${gamesTableHTML}</table>`;
+    matchHTML += `
+        <div class="games-tite">
+            <h3>
+                Games
+                (<a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}.zip" download>
+                    Download All Games
+                </a>)
+            </h3>
+        </div>
+        <div class="games-card-area">
+            ${gamesCards}
+        </div>
+    `;
+
     content.innerHTML = matchHTML;
     edq.util.table.enableSortingAll();
 }
