@@ -66,12 +66,72 @@ th, td {
 .content .tournament-card-item {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: center;
 
     flex-grow: 1;
+}
+
+.content .tournament-rankings-area {
+    display: flex;
+    flex-direction: column;
+}
+
+.content .tournament-rankings-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content .tournament-highlights-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .content .tournament-rankings {
     display: flex;
     flex-direction: column;
+}
+
+.content .tournament-stats-area {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.content .tournament-stats-item {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.content .tournament-match-stats-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.content .match-stats-card {
+    display: flex;
+    flex-direction: column;
+
+    flex-basis: 30%;
+    text-decoration: none;
+    color: inherit;
+    border: 2px solid;
+}
+
+.content .match-stats-card-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.content .match-stats-card-item[data-team="red"] {
+    justify-content: flex-start;
+}
+
+.content .match-stats-card-item[data-team="blue"] {
+    justify-content: flex-end;
 }
