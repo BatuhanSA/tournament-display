@@ -150,58 +150,96 @@ function fetchMatch(tournamentID, redTeam, blueTeam) {
     let matchBaseDir = `./tournament/results/${tournamentID}/matches/${tournamentID}_${redTeam}_vs_${blueTeam}`;
     fetch(`${matchBaseDir}/${tournamentID}_${redTeam}_vs_${blueTeam}_matchstats.json`).then(function(response) {
         response.json().then(function(result) {
-            renderMatch(tournamentID, result);
+            renderMatch(tournamentID, matchBaseDir, result);
         });
     });
 }
 
-function renderMatch(tournamentID, result) {
+function renderMatch(tournamentID, matchBaseDir, result) {
     let content = document.querySelector(".content");
     let redTeamName = result["red"]["name"];
     let blueTeamName = result["blue"]["name"];
-    let matchBaseDir = `./tournament/results/${tournamentID}/matches/${tournamentID}_${redTeamName}_vs_${blueTeamName}`;
-
     let matchHTML = `
-        <h2>
-            Tournament
-            <a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a>
-            Matchup Stats -- ${redTeamName} vs. ${blueTeamName}
-        </h2>
-        <h3>
-            Match Stats
-            (<a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_matchstats.json" download>Download Full Match Stats</a>)
-        </h3>
+        <div class="page-title">
+            <h2>
+                Tournament
+                <a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a>
+                Matchup Stats -- ${redTeamName} vs. ${blueTeamName}
+            </h2>
+        </div>
+        <div class="match-stats-tite">
+            <h3>
+                Match Stats
+                (<a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_matchstats.json" download>
+                    Download Full Match Stats
+                </a>)
+            </h3>
+        </div>
     `;
 
     let redTeamHTML = `
-        <h4>Red Team</h4>
-        <p><label>Name:</label>
-            <span>
-                <a href=#team?teamName=${redTeamName}&tournamentID=${tournamentID}>${redTeamName}</a>
-            </span>
-        </p>
-        <p><label>Wins:</label><span>${result["red"]["wins"]}</span></p>
-        <p><label>Ties:</label><span>${result["red"]["ties"]}</span></p>
-        <p><label>Losses:</label><span>${result["red"]["losses"]}</span></p>
-        <p><label>Crashes:</label><span>${result["red"]["crashes"]}</span></p>
-        <p><label>Timeouts:</label><span>${result["red"]["timeouts"]}</span></p>
+        <div class="team-stats-card-item">
+            Name: <a href=#team?teamName=${redTeamName}&tournamentID=${tournamentID}>${redTeamName}</a>
+        </div>
+        <div class="team-stats-card-item">
+            Wins: ${result["red"]["wins"]}
+        </div>
+        <div class="team-stats-card-item">
+            Ties: ${result["red"]["ties"]}
+        </div>
+        <div class="team-stats-card-item">
+            Losses: ${result["red"]["losses"]}
+        </div>
+        <div class="team-stats-card-item">
+            Crashes: ${result["red"]["crashes"]}
+        </div>
+        <div class="team-stats-card-item">
+            Timeouts: ${result["red"]["timeouts"]}
+        </div>
     `;
 
     let blueTeamHTML = `
-        <h4>Blue Team</h4>
-        <p><label>Name:</label>
-            <span>
-                <a href=#team?teamName=${blueTeamName}&tournamentID=${tournamentID}>${blueTeamName}</a>
-            </span>
-        </p>
-        <p><label>Wins:</label><span>${result["blue"]["wins"]}</span></p>
-        <p><label>Ties:</label><span>${result["blue"]["ties"]}</span></p>
-        <p><label>Losses:</label><span>${result["blue"]["losses"]}</span></p>
-        <p><label>Crashes:</label><span>${result["blue"]["crashes"]}</span></p>
-        <p><label>Timeouts:</label><span>${result["blue"]["timeouts"]}</span></p>
+        <div class="team-stats-card-item">
+            Name: <a href=#team?teamName=${blueTeamName}&tournamentID=${tournamentID}>${blueTeamName}</a>
+        </div>
+        <div class="team-stats-card-item">
+            Wins: ${result["blue"]["wins"]}
+        </div>
+        <div class="team-stats-card-item">
+            Ties: ${result["blue"]["ties"]}
+        </div>
+        <div class="team-stats-card-item">
+            Losses: ${result["blue"]["losses"]}
+        </div>
+        <div class="team-stats-card-item">
+            Crashes: ${result["blue"]["crashes"]}
+        </div>
+        <div class="team-stats-card-item">
+            Timeouts: ${result["blue"]["timeouts"]}
+        </div>
     `;
 
-    matchHTML += redTeamHTML + blueTeamHTML;
+    matchHTML += `
+        <div class="match-stats-card-area">
+            <div class="team-card-area">
+                <div class="team-card-title">
+                    <h4>Red Team</h4>
+                </div>
+                <div class="team-stats-card-area">
+                    ${redTeamHTML}
+                </div>
+            </div>
+            <div class="team-card-area">
+                <div class="team-card-title">
+                    <h4>Blue Team</h4>
+                </div>
+                <div class="team-stats-card-area">
+                    ${blueTeamHTML}
+                </div>
+            </div>
+        </div>
+    `;
+
     matchHTML += `
         <h3>
             Games
