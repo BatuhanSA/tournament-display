@@ -19,6 +19,7 @@ body > div {
 
 th, td {
   text-align: center;
+  font-size: 24px;
 }
 
 .header,
@@ -30,8 +31,24 @@ th, td {
     gap: 1rem;
 }
 
-.header h1 {
+h1, h2, h3 {
     margin: 0;
+}
+
+h1, h1 a {
+    font-size: 54px;
+}
+
+h2, h2 a {
+    font-size: 42px;
+}
+
+h3, h3 a {
+    font-size: 36px;
+}
+
+a, span, p {
+    font-size: 24px;
 }
 
 .content {
@@ -39,14 +56,19 @@ th, td {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-
+    width: 80rem;
+    margin: 0 auto;
     flex-grow: 1;
+    gap: 2em;
+    scrollbar-width: none; /* Hidding scroll bar for macOS. */
 }
 
 .content .page-title {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
+    gap: 1rem;
 }
 
 .content .tournament-card-area {
@@ -61,12 +83,23 @@ th, td {
 .content .tournament-card {
     display: flex;
     flex-direction: column;
+    min-width: 25%;
+    border: 2px solid;
+    padding: 0.75em;
+    border-radius: 10px;
+    color: inherit;
+    text-decoration: none;
+    box-shadow: 2px 2px 4px #85808a
+}
+
+.content .tournament-title {
+    text-align: center;
 }
 
 .content .tournament-card-item {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
 
     flex-grow: 1;
 }
@@ -74,6 +107,8 @@ th, td {
 .content .tournament-rankings-area {
     display: flex;
     flex-direction: column;
+
+    gap: 2em;
 }
 
 .content .tournament-rankings-title {
@@ -95,14 +130,8 @@ th, td {
 
 .content .tournament-stats-area {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-}
-
-.content .tournament-stats-item {
-    display: flex;
-    flex-grow: 1;
-    justify-content: center;
 }
 
 .content .tournament-match-stats-area {

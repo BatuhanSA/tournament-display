@@ -45,9 +45,9 @@ function renderHome(text) {
     element.innerHTML = text;
 
     let homeHTML = `
-        <div class="page-title">
-            <h2>Tournaments</h2>
-        </div>
+        <h2 class="page-title">
+            Tournaments
+        </h2>
     `;
 
     let tournamentsHTML = ``;
@@ -59,21 +59,27 @@ function renderHome(text) {
 
         fetch(`./tournament/results/${tournamentID}/results.json`).then(function(response) {
             response.json().then(function(results) {
-                document.querySelector(`.tournament-card[data-id="${tournamentID}"] .first`).textContent = `1st ${results["records"][0]["name"]}`;
-                document.querySelector(`.tournament-card[data-id="${tournamentID}"] .second`).textContent = `2nd ${results["records"][1]["name"]}`;
-                document.querySelector(`.tournament-card[data-id="${tournamentID}"] .third`).textContent = `3rd ${results["records"][2]["name"]}`;
+                document.querySelector(`.tournament-card[data-id="${tournamentID}"] .first`).innerHTML = `
+                    <span>#1:</span><span><em>${results["records"][0]["name"]}</em></span>
+                `;
+                document.querySelector(`.tournament-card[data-id="${tournamentID}"] .second`).innerHTML = `
+                    <span>#2:</span><span><em>${results["records"][1]["name"]}</em></span>
+                `;
+                document.querySelector(`.tournament-card[data-id="${tournamentID}"] .third`).innerHTML = `
+                    <span>#3:</span><span><em>${results["records"][2]["name"]}</em></span>
+                `;
             });
         });
 
         tournamentsHTML += `
-            <div class="tournament-card" data-id="${tournamentID}">
-                <div class="tournament-card-item">
-                    <a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a>
-                </div>
+            <a href=#tournament?tournamentID=${tournamentID} class="tournament-card" data-id="${tournamentID}">
+                <h3 class="tournament-title">
+                    ${tournamentID}
+                </h3>
                 <div class="tournament-card-item first"></div>
                 <div class="tournament-card-item second"></div>
                 <div class="tournament-card-item third"></div>
-            </div>
+            </a>
         `;
     }
 
@@ -131,13 +137,6 @@ function renderTournament(tournamentID, data) {
             </div>
             <div class="tournament-rankings">
                 <table class="sortable-table">${rankingsTableHTML}</table>
-            </div>
-        </div>
-        <div class="tournament-highlights-area">
-            <div class="tournament-highlights-title">
-                <h2>Highlights</h2>
-            </div>
-            <div class="tournament-highlights">
             </div>
         </div>
     `;
@@ -339,15 +338,15 @@ function renderTeam(tournamentID, teamName, result) {
         }
 
         tournamentStatsHTML += `
-            <div class="tournament-stats-item">
+            <span>
                 Wins: ${record["wins"]}
-            </div>
-            <div class="tournament-stats-item">
+            </span>
+            <span>
                 Losses: ${record["losses"]}
-            </div>
-            <div class="tournament-stats-item">
+            </span>
+            <span>
                 Ties: ${record["ties"]}
-            </div>
+            </span>
         `;
     }
 
@@ -396,12 +395,12 @@ function renderTeam(tournamentID, teamName, result) {
     }
 
     let teamHTML = `
-        <div class="page-title">
-            <h2>
-                Tournament <a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a>
-                Team Stats -- ${teamName}
-            </h2>
-        </div>
+        <h2 class="page-title">
+            ${teamName}
+        </h2>
+        <h3 class="page-title">
+            Tournament <a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a>
+        </h3>
         <div class="tournament-stats-area">
             ${tournamentStatsHTML}
         </div>
