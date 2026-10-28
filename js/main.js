@@ -290,8 +290,7 @@ function renderMatch(tournamentID, matchBaseDir, result) {
                     </a>
                 </h4>
                 <img
-                    src=${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_${paddedID}.webp
-                    href=${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_${paddedID}.webp
+                    src="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_${paddedID}.webp"
                 />
                 <div class="game-metadata-area">
                     <div class="card-item">
