@@ -45,7 +45,7 @@ function renderHome(text) {
     element.innerHTML = text;
 
     let homeHTML = `
-        <h2 class="page-title">
+        <h2 class="title">
             Tournaments
         </h2>
     `;
@@ -59,31 +59,31 @@ function renderHome(text) {
 
         fetch(`./tournament/results/${tournamentID}/results.json`).then(function(response) {
             response.json().then(function(results) {
-                document.querySelector(`.tournament-card[data-id="${tournamentID}"] .first`).innerHTML = `
+                document.querySelector(`.card[data-id="${tournamentID}"] .first`).innerHTML = `
                     <span>#1:</span><span><em>${results["records"][0]["name"]}</em></span>
                 `;
-                document.querySelector(`.tournament-card[data-id="${tournamentID}"] .second`).innerHTML = `
+                document.querySelector(`.card[data-id="${tournamentID}"] .second`).innerHTML = `
                     <span>#2:</span><span><em>${results["records"][1]["name"]}</em></span>
                 `;
-                document.querySelector(`.tournament-card[data-id="${tournamentID}"] .third`).innerHTML = `
+                document.querySelector(`.card[data-id="${tournamentID}"] .third`).innerHTML = `
                     <span>#3:</span><span><em>${results["records"][2]["name"]}</em></span>
                 `;
             });
         });
 
         tournamentsHTML += `
-            <a href=#tournament?tournamentID=${tournamentID} class="tournament-card" data-id="${tournamentID}">
-                <h3 class="tournament-title">
+            <a href=#tournament?tournamentID=${tournamentID} class="card" data-id="${tournamentID}">
+                <h3 class="title">
                     ${tournamentID}
                 </h3>
-                <div class="tournament-card-item first"></div>
-                <div class="tournament-card-item second"></div>
-                <div class="tournament-card-item third"></div>
+                <div class="rank first"></div>
+                <div class="rank second"></div>
+                <div class="rank third"></div>
             </a>
         `;
     }
 
-    homeHTML += `<div class=tournament-card-area>${tournamentsHTML}</div>`
+    homeHTML += `<div class="card-area">${tournamentsHTML}</div>`
     content.innerHTML = homeHTML;
 }
 
@@ -128,11 +128,11 @@ function renderTournament(tournamentID, data) {
     rankingsTableHTML += `<tbody>${rankingsTableBodyHTML}</tbody>`
 
     let tournamentHTML = `
-        <div class="page-title">
+        <div class="title">
             <h2>Tournament ${tournamentID}</h2>
         </div>
         <div class="tournament-rankings-area">
-            <div class="tournament-rankings-title">
+            <div class="title">
                 <h2>Rankings</h2>
             </div>
             <div class="tournament-rankings">
@@ -159,11 +159,11 @@ function renderMatch(tournamentID, matchBaseDir, result) {
     let redTeamName = result["red"]["name"];
     let blueTeamName = result["blue"]["name"];
     let matchHTML = `
-        <div class="page-title">
+        <div class="title">
             <h2>
                 Tournament
                 <a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a>
-                Matchup Stats -- ${redTeamName} vs. ${blueTeamName}
+                ${redTeamName} vs. ${blueTeamName}
             </h2>
         </div>
         <div class="match-stats-tite">
@@ -219,7 +219,7 @@ function renderMatch(tournamentID, matchBaseDir, result) {
     `;
 
     matchHTML += `
-        <div class="match-stats-card-area">
+        <div class="card-area">
             <div class="team-card-area">
                 <div class="team-card-title">
                     <h4>Red Team</h4>
@@ -331,7 +331,7 @@ function renderTeam(tournamentID, teamName, result) {
     const ranks = new Map();
     let tournamentStatsHTML = ``;
     for(const [i, record] of result["records"].entries()) {
-        ranks.set(record["name"], i);
+        ranks.set(record["name"], i + 1);
 
         if (record["name"] != teamName){
             continue;
@@ -362,49 +362,43 @@ function renderTeam(tournamentID, teamName, result) {
         let matchBaseDir = `./tournament/results/${tournamentID}/matches/${tournamentID}_${redTeamName}_vs_${blueTeamName}`;
 
         matchStatsCards += `
-            <a class="match-stats-card" href=#match?tournamentID=${tournamentID}&redTeam=${redTeamName}&blueTeam=${blueTeamName}>
-                <div class="match-stats-card-item" data-team="red">
+            <a class="card" href=#match?tournamentID=${tournamentID}&redTeam=${redTeamName}&blueTeam=${blueTeamName}>
+                <span class="match-" data-team="red">
                     ${match["red"]["name"]}
-                </div>
-                <div class="match-stats-card-item" data-team="red">
-                    <div class="team-rank">
+                </span>
+                <span class="match-metadata" data-team="red">
+                    <span class="team-rank">
                         #${ranks.get(match["red"]["name"])}
-                    </div>
-                    <div class="tem-color">
-                        red
-                    </div>
-                </div>
-                <div class="match-stats-card-item">
-                    ${match["red"]["wins"]}W/${match["red"]["ties"]}T/${match["red"]["losses"]}L
+                    </span>
+                    <div class="team-color-box" data-team="red"></div>
+                </span>
+                <span class="match-metadata">
                     ${match["red"]["wins"]} - ${match["blue"]["wins"]}
-                    ${match["blue"]["wins"]}W/${match["blue"]["ties"]}T/${match["blue"]["losses"]}L
-                </div>
-                <div class="match-stats-card-item" data-team="blue">
-                    <div class="tem-color">
-                        blue
-                    </div>
-                    <div class="team-rank">
+                </span>
+                <span class="match-metadata" data-team="blue">
+                    <div class="team-color-box" data-team="blue"></div>
+                    <span class="team-rank">
                         #${ranks.get(match["blue"]["name"])}
-                    </div>
-                </div>
-                <div class="match-stats-card-item" data-team="blue">
+                    </span>
+                </span>
+                <span class="match-metadata" data-team="blue">
                     ${match["blue"]["name"]}
-                </div>
+                </span>
             </a>
         `;
     }
 
     let teamHTML = `
-        <h2 class="page-title">
+        <h2 class="title">
             ${teamName}
         </h2>
-        <h3 class="page-title">
+        <h3 class="title">
             Tournament <a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a>
         </h3>
-        <div class="tournament-stats-area">
+        <div class="tournament-stats">
             ${tournamentStatsHTML}
         </div>
-        <div class="tournament-match-stats-area">
+        <div class="card-area">
             ${matchStatsCards}
         </div>
     `;

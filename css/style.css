@@ -52,85 +52,72 @@ a, span, p {
 }
 
 .content {
-    overflow-y: scroll;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     align-items: stretch;
+    gap: 2em;
+
+    overflow-y: scroll;
     width: 80rem;
     margin: 0 auto;
-    flex-grow: 1;
-    gap: 2em;
-    scrollbar-width: none; /* Hidding scroll bar for macOS. */
+    scrollbar-width: none; /* Hiding scroll bar for macOS. */
 }
 
-.content .page-title {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-}
-
-.content .tournament-card-area {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 2rem;
-}
-
-.content .tournament-card {
-    display: flex;
-    flex-direction: column;
-    min-width: 25%;
-    border: 2px solid;
-    padding: 0.75em;
-    border-radius: 10px;
-    color: inherit;
-    text-decoration: none;
-    box-shadow: 2px 2px 4px #85808a
-}
-
-.content .tournament-title {
+.content .title {
     text-align: center;
 }
 
-.content .tournament-card-item {
+.content .card-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.content .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+
+    min-width: 25%;
+    border: 2px solid;
+    box-shadow: 2px 2px 4px #85808a;
+    border-radius: 10px;
+    padding: 0.75em;
+    color: inherit;
+    text-decoration: none;
+}
+
+.content .rank {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
-    flex-grow: 1;
+    align-items: stretch;
 }
 
 .content .tournament-rankings-area {
     display: flex;
     flex-direction: column;
-
+    justify-content: flex-start;
+    align-items: stretch;
     gap: 2em;
-}
-
-.content .tournament-rankings-title {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.content .tournament-highlights-title {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .content .tournament-rankings {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
 }
 
-.content .tournament-stats-area {
+.content .tournament-stats {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -141,30 +128,35 @@ a, span, p {
     flex-wrap: wrap;
 }
 
-.content .match-stats-card {
-    display: flex;
-    flex-direction: column;
-
-    flex-basis: 30%;
-    text-decoration: none;
-    color: inherit;
-    border: 2px solid;
-}
-
-.content .match-stats-card-item {
+.content .match-metadata {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: stretch;
+    gap: 0.25em;
 }
 
-.content .match-stats-card-item[data-team="red"] {
+.content .match-metadata[data-team="red"] {
     justify-content: flex-start;
 }
 
-.content .match-stats-card-item[data-team="blue"] {
+.content .match-metadata[data-team="blue"] {
     justify-content: flex-end;
 }
 
+.content .team-color-box {
+    height: 24px;
+    width: 24px;
+}
+
+.content .team-color-box[data-team="red"]{
+    background-color: #a90000;
+}
+
+.content .team-color-box[data-team="blue"]{
+    background-color: #0000a9;
+}
+/**/
 .content .match-stats-tite {
     display: flex;
     flex-direction: column;
