@@ -45,7 +45,7 @@ function renderHome(text) {
     element.innerHTML = text;
 
     let homeHTML = `
-        <h2 class="title">
+        <h2 class="center">
             Tournaments
         </h2>
     `;
@@ -73,12 +73,14 @@ function renderHome(text) {
 
         tournamentsHTML += `
             <a href=#tournament?tournamentID=${tournamentID} class="card" data-id="${tournamentID}">
-                <h3 class="title">
+                <h3 class="center">
                     ${tournamentID}
                 </h3>
-                <div class="card-item first"></div>
-                <div class="card-item second"></div>
-                <div class="card-item third"></div>
+                <div>
+                    <div class="card-item first"></div>
+                    <div class="card-item second"></div>
+                    <div class="card-item third"></div>
+                </div>
             </a>
         `;
     }
@@ -128,11 +130,11 @@ function renderTournament(tournamentID, data) {
     rankingsTableHTML += `<tbody>${rankingsTableBodyHTML}</tbody>`
 
     let tournamentHTML = `
-        <div class="title">
+        <div class="center">
             <h2>Tournament ${tournamentID}</h2>
         </div>
         <div class="tournament-rankings-area">
-            <div class="title">
+            <div class="center">
                 <h2>Rankings</h2>
             </div>
             <div class="tournament-rankings">
@@ -159,10 +161,10 @@ function renderMatch(tournamentID, matchBaseDir, result) {
     let redTeamName = result["red"]["name"];
     let blueTeamName = result["blue"]["name"];
     let matchHTML = `
-        <h2 class="title">
+        <h2 class="center">
             ${redTeamName} vs. ${blueTeamName}
         </h2>
-        <h2 class="title">
+        <h2 class="center">
             Tournament <a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a>
         </h2>
     `;
@@ -229,30 +231,30 @@ function renderMatch(tournamentID, matchBaseDir, result) {
         <div class="card-area">
             <div class="card" data-clickable="false">
                 <div class="card-item">
-                    <span>Match Stats:<span>
+                    <span>Full Match Stats:</span>
                     <a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_matchstats.json" download>
-                        Download Full Match Stats
+                        Download
                     </a>
                 </div>
                 <div class="card-item">
-                    <span>Games:</span>
+                    <span>All Games:</span>
                     <a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}.zip" download>
-                        Download All Games
+                        Download
                     </a>
                 </div>
             </div>
         </div>
         <div class="card-area">
             <div class="card" data-clickable="false">
-                <span class="title">
+                <h4 class="center">
                     Red Team
-                </span>
+                </h4>
                 ${redTeamHTML}
             </div>
             <div class="card" data-clickable="false">
-                <span class="title">
+                <h4 class="center">
                     Blue Team
-                </span>
+                </h4>
                 ${blueTeamHTML}
             </div>
     `;
@@ -277,40 +279,45 @@ function renderMatch(tournamentID, matchBaseDir, result) {
     for (let i = 0; i < result.boards.length; i++) {
         let paddedID = i.toString().padStart(3, '0');
         gamesCards += `
-            <div class="game-card">
-                <div class="game-img">
-                    <a href=${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_${paddedID}.webp>
-                        <img src=${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_${paddedID}.webp width="300">
+            <div class="card">
+                <h4 class="center">
+                    <a href=#team?teamName=${blueTeamName}&tournamentID=${tournamentID}>
+                        ${redTeamName}
                     </a>
-                </div>
-                <div class="game-info-area">
-                    <div class="game-info-item">
-                        <a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_${paddedID}.log" download>
-                            Log
-                        </a>
+                    vs.
+                    <a href=#team?teamName=${blueTeamName}&tournamentID=${tournamentID}>
+                        ${blueTeamName}
+                    </a>
+                </h4>
+                <img
+                    src=${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_${paddedID}.webp
+                    href=${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_${paddedID}.webp
+                />
+                <div class="game-metadata-area">
+                    <div class="card-item">
+                        <span>
+                            Download:
+                            <a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_${paddedID}.log" download>Log</a>,
+                            <a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_${paddedID}.replay" download>Replay</a>
+                        </span>
                     </div>
-                    <div class="game-info-item">
-                        <a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_${paddedID}.replay" download>
-                            Replay
-                        </a>
+                    <div class="card-item">
+                        <span>Score: ${result.scores[i]}</span>
                     </div>
-                    <div class="game-info-item">
-                        Game ID: ${paddedID}
+                    <div class="card-item">
+                        <span>Board: ${result.boards[i]}</span>
                     </div>
-                    <div class="game-info-item">
-                        Board: ${result.boards[i]}
+                    <div class="card-item">
+                        <span>Game ID: ${paddedID}</span>
                     </div>
-                    <div class="game-info-item">
-                        Score: ${result.scores[i]}
+                    <div class="card-item">
+                        <span>Total Time: ${result.times[i].toFixed(2)}</span>
                     </div>
-                    <div class="game-info-item">
-                        Total Time: ${result.times[i]}
+                    <div class="card-item">
+                        <span>Red Time: ${result.red.times[i].toFixed(2)}</span>
                     </div>
-                    <div class="game-info-item">
-                        Red Time: ${result.red.times[i]}
-                    </div>
-                    <div class="game-info-item">
-                        Blue Time: ${result.blue.times[i]}
+                    <div class="card-item">
+                        <span>Blue Time: ${result.blue.times[i].toFixed(2)}</span>
                     </div>
                 </div>
             </div>
@@ -318,7 +325,7 @@ function renderMatch(tournamentID, matchBaseDir, result) {
     }
 
     matchHTML += `
-        <div class="games-card-area">
+        <div class="card-area">
             ${gamesCards}
         </div>
     `;
@@ -381,7 +388,7 @@ function renderTeam(tournamentID, teamName, result) {
                 </span>
                 <span class="match-metadata" data-team="red">
                     <span class="team-rank">
-                        #${ranks.get(match["red"]["name"])}
+                        Rank #${ranks.get(match["red"]["name"])}
                     </span>
                     <div class="team-color-box" data-team="red"></div>
                 </span>
@@ -391,7 +398,7 @@ function renderTeam(tournamentID, teamName, result) {
                 <span class="match-metadata" data-team="blue">
                     <div class="team-color-box" data-team="blue"></div>
                     <span class="team-rank">
-                        #${ranks.get(match["blue"]["name"])}
+                        Rank #${ranks.get(match["blue"]["name"])}
                     </span>
                 </span>
                 <span class="match-metadata" data-team="blue">
@@ -402,16 +409,16 @@ function renderTeam(tournamentID, teamName, result) {
     }
 
     let teamHTML = `
-        <h2 class="title">
+        <h2 class="center">
             ${teamName}
         </h2>
-        <h3 class="title">
+        <h3 class="center">
             Tournament <a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a>
         </h3>
         <div class="card-area">
             <div></div>
             <div class="card" data-clickable="false">
-                <span class="title">Stats</span>
+                <h4 class="center">Stats</h4>
                 ${tournamentStatsHTML}
             </div>
             <div></div>
