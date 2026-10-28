@@ -228,12 +228,6 @@ function renderMatch(tournamentID, matchBaseDir, result) {
     matchHTML += `
         <div class="card-area">
             <div class="card" data-clickable="false">
-                <span class="title">
-                    Red Team
-                </span>
-                ${redTeamHTML}
-            </div>
-            <div class="card" data-clickable="false">
                 <div class="card-item">
                     <span>Match Stats:<span>
                     <a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_matchstats.json" download>
@@ -246,6 +240,14 @@ function renderMatch(tournamentID, matchBaseDir, result) {
                         Download All Games
                     </a>
                 </div>
+            </div>
+        </div>
+        <div class="card-area">
+            <div class="card" data-clickable="false">
+                <span class="title">
+                    Red Team
+                </span>
+                ${redTeamHTML}
             </div>
             <div class="card" data-clickable="false">
                 <span class="title">

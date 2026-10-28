@@ -83,7 +83,7 @@ a, span, p {
     justify-content: flex-start;
     align-items: stretch;
 
-    min-width: 25%;
+    min-width: 30%;
     border: 2px solid;
     box-shadow: 2px 2px 4px #85808a;
     border-radius: 10px;
@@ -93,6 +93,7 @@ a, span, p {
 }
 
 .content .card[data-clickable="false"] {
+    border: 2px dashed;
     box-shadow: none;
 }
 
