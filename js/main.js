@@ -76,9 +76,9 @@ function renderHome(text) {
                 <h3 class="title">
                     ${tournamentID}
                 </h3>
-                <div class="rank first"></div>
-                <div class="rank second"></div>
-                <div class="rank third"></div>
+                <div class="card-item first"></div>
+                <div class="card-item second"></div>
+                <div class="card-item third"></div>
             </a>
         `;
     }
@@ -159,84 +159,100 @@ function renderMatch(tournamentID, matchBaseDir, result) {
     let redTeamName = result["red"]["name"];
     let blueTeamName = result["blue"]["name"];
     let matchHTML = `
-        <div class="title">
-            <h2>
-                Tournament
-                <a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a>
-                ${redTeamName} vs. ${blueTeamName}
-            </h2>
-        </div>
-        <div class="match-stats-tite">
-            <h3>
-                Match Stats
-                (<a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_matchstats.json" download>
-                    Download Full Match Stats
-                </a>)
-            </h3>
-        </div>
+        <h2 class="title">
+            ${redTeamName} vs. ${blueTeamName}
+        </h2>
+        <h2 class="title">
+            Tournament <a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a>
+        </h2>
     `;
 
     let redTeamHTML = `
-        <div class="team-stats-card-item">
-            Name: <a href=#team?teamName=${redTeamName}&tournamentID=${tournamentID}>${redTeamName}</a>
+        <div class="card-item">
+            <span>Name:</span>
+            <a href=#team?teamName=${redTeamName}&tournamentID=${tournamentID}>
+                ${redTeamName}
+            </a>
         </div>
-        <div class="team-stats-card-item">
-            Wins: ${result["red"]["wins"]}
+        <div class="card-item">
+            <span>Wins:</span>
+            <span>${result["red"]["wins"]}</span>
         </div>
-        <div class="team-stats-card-item">
-            Ties: ${result["red"]["ties"]}
+        <div class="card-item">
+            <span>Ties:</span>
+            <span>${result["red"]["ties"]}</span>
         </div>
-        <div class="team-stats-card-item">
-            Losses: ${result["red"]["losses"]}
+        <div class="card-item">
+            <span>Losses:</span>
+            <span>${result["red"]["losses"]}</span>
         </div>
-        <div class="team-stats-card-item">
-            Crashes: ${result["red"]["crashes"]}
+        <div class="card-item">
+            <span>Crashes:</span>
+            <span>${result["red"]["crashes"]}</span>
         </div>
-        <div class="team-stats-card-item">
-            Timeouts: ${result["red"]["timeouts"]}
+        <div class="card-item">
+            <span>Timeouts:</span>
+            <span>${result["red"]["timeouts"]}</span>
         </div>
     `;
 
     let blueTeamHTML = `
-        <div class="team-stats-card-item">
-            Name: <a href=#team?teamName=${blueTeamName}&tournamentID=${tournamentID}>${blueTeamName}</a>
+        <div class="card-item">
+            <span>Name:</span>
+            <a href=#team?teamName=${blueTeamName}&tournamentID=${tournamentID}>
+                ${blueTeamName}
+            </a>
         </div>
-        <div class="team-stats-card-item">
-            Wins: ${result["blue"]["wins"]}
+        <div class="card-item">
+            <span>Wins:</span>
+            <span>${result["blue"]["wins"]}</span>
         </div>
-        <div class="team-stats-card-item">
-            Ties: ${result["blue"]["ties"]}
+        <div class="card-item">
+            <span>Ties:</span>
+            <span>${result["blue"]["ties"]}</span>
         </div>
-        <div class="team-stats-card-item">
-            Losses: ${result["blue"]["losses"]}
+        <div class="card-item">
+            <span>Losses:</span>
+            <span>${result["blue"]["losses"]}</span>
         </div>
-        <div class="team-stats-card-item">
-            Crashes: ${result["blue"]["crashes"]}
+        <div class="card-item">
+            <span>Crashes:</span>
+            <span>${result["blue"]["crashes"]}</span>
         </div>
-        <div class="team-stats-card-item">
-            Timeouts: ${result["blue"]["timeouts"]}
+        <div class="card-item">
+            <span>Timeouts:</span>
+            <span>${result["blue"]["timeouts"]}</span>
         </div>
     `;
 
     matchHTML += `
         <div class="card-area">
-            <div class="team-card-area">
-                <div class="team-card-title">
-                    <h4>Red Team</h4>
+            <div class="card" data-clickable="false">
+                <span class="title">
+                    Red Team
+                </span>
+                ${redTeamHTML}
+            </div>
+            <div class="card" data-clickable="false">
+                <div class="card-item">
+                    <span>Match Stats:<span>
+                    <a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}_matchstats.json" download>
+                        Download Full Match Stats
+                    </a>
                 </div>
-                <div class="team-stats-card-area">
-                    ${redTeamHTML}
+                <div class="card-item">
+                    <span>Games:</span>
+                    <a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}.zip" download>
+                        Download All Games
+                    </a>
                 </div>
             </div>
-            <div class="team-card-area">
-                <div class="team-card-title">
-                    <h4>Blue Team</h4>
-                </div>
-                <div class="team-stats-card-area">
-                    ${blueTeamHTML}
-                </div>
+            <div class="card" data-clickable="false">
+                <span class="title">
+                    Blue Team
+                </span>
+                ${blueTeamHTML}
             </div>
-        </div>
     `;
 
     let gamesTableHTML = `
@@ -300,14 +316,6 @@ function renderMatch(tournamentID, matchBaseDir, result) {
     }
 
     matchHTML += `
-        <div class="games-tite">
-            <h3>
-                Games
-                (<a href="${matchBaseDir}/${tournamentID}_${redTeamName}_vs_${blueTeamName}.zip" download>
-                    Download All Games
-                </a>)
-            </h3>
-        </div>
         <div class="games-card-area">
             ${gamesCards}
         </div>
@@ -338,15 +346,18 @@ function renderTeam(tournamentID, teamName, result) {
         }
 
         tournamentStatsHTML += `
-            <span>
-                Wins: ${record["wins"]}
-            </span>
-            <span>
-                Losses: ${record["losses"]}
-            </span>
-            <span>
-                Ties: ${record["ties"]}
-            </span>
+            <div class="card-item">
+                <span>Wins:</span>
+                <span>${record["wins"]}</span>
+            </div>
+            <div class="card-item">
+                <span>Losses:</span>
+                <span>${record["losses"]}</span>
+            </div>
+            <div class="card-item">
+                <span>Ties:</span>
+                <span>${record["ties"]}</span>
+            </div>
         `;
     }
 
@@ -363,7 +374,7 @@ function renderTeam(tournamentID, teamName, result) {
 
         matchStatsCards += `
             <a class="card" href=#match?tournamentID=${tournamentID}&redTeam=${redTeamName}&blueTeam=${blueTeamName}>
-                <span class="match-" data-team="red">
+                <span class="match-metadata" data-team="red">
                     ${match["red"]["name"]}
                 </span>
                 <span class="match-metadata" data-team="red">
@@ -395,8 +406,13 @@ function renderTeam(tournamentID, teamName, result) {
         <h3 class="title">
             Tournament <a href=#tournament?tournamentID=${tournamentID}>${tournamentID}</a>
         </h3>
-        <div class="tournament-stats">
-            ${tournamentStatsHTML}
+        <div class="card-area">
+            <div></div>
+            <div class="card" data-clickable="false">
+                <span class="title">Stats</span>
+                ${tournamentStatsHTML}
+            </div>
+            <div></div>
         </div>
         <div class="card-area">
             ${matchStatsCards}
